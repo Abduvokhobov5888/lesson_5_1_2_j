@@ -33,7 +33,7 @@ public class IntroActivity  extends AppCompatActivity {
     TextView textView;
     ArrayList<ItemModel> item;
     Animation animation;
-    int view;
+    LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,24 +63,31 @@ public class IntroActivity  extends AppCompatActivity {
         addDots(0);
 
 
-
-        rv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int position=0;
             @Override
-            public void onScrollChanged() {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
-                view = rv.getScrollY();
-                Log.e("Next: ", view + "");
 
-                if (view == 2){
-                    animation = AnimationUtils.loadAnimation(IntroActivity.this,R.anim.animation);
-                    btn.setAnimation(animation);
-                    textView.setVisibility(View.INVISIBLE);
-                    btn.setVisibility(View.VISIBLE);
+            }
 
-                }else {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                position = linearLayoutManager.findFirstVisibleItemPosition();
+                Log.d("@@@","" +position);
+                addDots(position);
+
+                if (position == 0){
                     btn.setVisibility(View.INVISIBLE);
                     textView.setVisibility(View.VISIBLE);
-
+                }else if (position == 1){
+                    btn.setVisibility(View.INVISIBLE);
+                    textView.setVisibility(View.VISIBLE);
+                }else {
+                    textView.setVisibility(View.INVISIBLE);
+                    btn.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -88,7 +95,8 @@ public class IntroActivity  extends AppCompatActivity {
 
     private void setRv(){
        rv =findViewById(R.id.rv);
-       rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+       linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+       rv.setLayoutManager(linearLayoutManager);
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rv);
 

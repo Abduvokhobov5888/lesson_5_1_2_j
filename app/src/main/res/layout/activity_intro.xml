@@ -27,34 +27,25 @@
 
     <LinearLayout
         android:id="@+id/dots"
-        android:layout_width="5dp"
-        android:layout_height="8dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/lineText">
+        app:layout_constraintRight_toRightOf="parent">
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lineText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:id="@+id/textSkip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:gravity="center"
+            android:layout_marginBottom="27dp"
             android:text="@string/skip"
             android:textColor="#2c94f5"
             android:textSize="24sp"
@@ -67,12 +58,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
+            android:layout_marginBottom="20dp"
             android:text="Get started"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
